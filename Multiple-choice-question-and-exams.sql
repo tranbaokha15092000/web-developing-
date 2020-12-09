@@ -50,6 +50,7 @@ CREATE TABLE DescriptionContent(
 CREATE TABLE Question(
 	id INT UNSIGNED PRIMARY KEY,
     content TEXT,
+    subject_id VARCHAR(6),
     type VARCHAR(1) CHECK (type in ('E', 'M', 'H')),
     description_id INT UNSIGNED,
     FOREIGN KEY (description_id) REFERENCES DescriptionContent(id)
@@ -121,6 +122,56 @@ ADD FOREIGN KEY (lecturer_id) REFERENCES Lecturer(id),
 ADD manager_id VARCHAR(8),
 ADD accepted_date DATE,
 ADD FOREIGN KEY(manager_id) REFERENCES Manager(id);
+
+CREATE TABLE QuestionForm (
+    question_id INT UNSIGNED,
+    subject_id VARCHAR(6),
+    exam_date DATE,
+    id INT UNSIGNED,
+    content VARCHAR(255),
+    exam_id VARCHAR(4),
+    PRIMARY KEY (question_id , subject_id , exam_date , id, exam_id),
+    FOREIGN KEY (question_id)
+        REFERENCES question(id),
+    FOREIGN KEY (subject_id , exam_date, exam_id)
+        REFERENCES exams(subject_id, exam_date, id)
+);
+
+CREATE TABLE StudentAnswer (
+    student_id VARCHAR(8),
+    subject_id VARCHAR(6),
+    exam_date DATE,
+    exam_id VARCHAR(4),
+    score INT UNSIGNED CHECK (0 <= score <= 10),
+    PRIMARY KEY (student_id , subject_id , exam_date , exam_id),
+    FOREIGN KEY (student_id)
+        REFERENCES Student (id),
+    FOREIGN KEY (subject_id , exam_date , exam_id)
+        REFERENCES exams(subject_id , exam_date , id)
+);
+
+CREATE TABLE StudentAnswerOneQuestion (
+    student_id VARCHAR(8),
+    subject_id VARCHAR(6),
+    exam_date DATE,
+    exam_id VARCHAR(4),
+    questionform_id INT UNSIGNED,
+    Notes TEXT,
+    answer VARCHAR(1) CHECK (answer IN ('A', 'B', 'C','D')),
+    PRIMARY KEY (student_id , subject_id , exam_date , exam_id, questionform_id),
+    FOREIGN KEY (student_id , subject_id , exam_date , exam_id)
+        REFERENCES StudentAnswer(student_id , subject_id , exam_date , exam_id)
+);
+
+CREATE TABLE Student_Exam(
+	student_id VARCHAR(8),
+    subject_id VARCHAR(6),
+    exam_date DATE,
+    exam_id VARCHAR(4),
+    PRIMARY KEY(student_id, subject_id, exam_date, exam_id),
+    FOREIGN KEY(student_id) REFERENCES Student(id),
+    FOREIGN KEY(subject_id, exam_date, exam_id) REFERENCES exams(subject_id, exam_date, id)
+);
 
 
 

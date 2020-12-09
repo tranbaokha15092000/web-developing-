@@ -57,14 +57,14 @@ VALUES
     (4),
     (5);
 
-INSERT INTO Question
+INSERT INTO Question(id, content, subject_id, type, description_id)
 VALUES
-	(1, 'Truong DHBK co bao nhieu co so: ', 'E', 1),
-    (2, 'Viet Nam co bao nhieu tinh: ', 'E', 1),
-    (3, 'Bac Ho sinh nam bao nhieu: ', 'M', 1),
-    (4, 'Bach Khoa co bao nhieu mon hoc: ', 'M', 1),
-    (5, 'CSE co bao nhieu sinh vien: ', 'H', 1),
-    (6, 'DHBK co bao nhieu sinh vien: ', 'H', 1);
+	(1, 'Truong DHBK co bao nhieu co so: ', 'AA0000','E', 1),
+    (2, 'Viet Nam co bao nhieu tinh: ', 'AA0000','E', 1),
+    (3, 'Bac Ho sinh nam bao nhieu: ', 'AA0001','M', 1),
+    (4, 'Bach Khoa co bao nhieu mon hoc: ', 'AA0001', 'M', 1),
+    (5, 'CSE co bao nhieu sinh vien: ', 'BB0000','H', 1),
+    (6, 'DHBK co bao nhieu sinh vien: ', 'BB0000','H', 1);
 
 INSERT INTO Answer
 VALUES
@@ -114,7 +114,7 @@ VALUES
     ('BB0000', '2020-10-28'),
     ('BB0000', '2020-10-29');
     
-INSERT INTO exams
+INSERT INTO exams(subject_id, exam_date, id, term, startDate, endDate)
 VALUES
 	('AA0000', '2020-12-8', '0001', 1, '2020-8-15', '2021-5-31'),
     ('AA0000', '2020-12-7', '0002', 1, '2020-8-15', '2021-5-31'),
@@ -190,6 +190,40 @@ WHERE subject_id = 'BB0000' and exam_date = '2020-10-29';
 
 ALTER TABLE question
 RENAME COLUMN employee_id TO lecturer_id;
+
+INSERT INTO questionform
+VALUES 
+	(1, 'AA0000','2020-12-05', 1, 'DHBK co bao nhieu co so: ', '0003'),
+    (2, 'AA0000', '2020-12-05', 2, 'VN co bao nhieu tinh: ', '0003'),
+    (1, 'AA0000', '2020-12-07', 3, 'HCMUT have ... branch: ', '0002'),
+    (2, 'AA0000', '2020-12-07', 2, 'How many province does VN have: ', '0002'),
+    (1, 'AA0000', '2020-12-08', 4, 'DHBK co ... co so: ', '0001'),
+    (2, 'AA0000', '2020-12-08', 5, 'VN co ... tinh: ', '0001'),
+    (3, 'AA0001', '2020-11-12', 6, 'Bac Ho sinh nam bao nhieu', '0002'),
+    (4, 'AA0001', '2020-11-12', 7, 'BK co bao nhieu mon hoc ', '0002'),
+    (3, 'AA0001', '2020-11-15', 8, 'When was Bac Ho borned: ', '0001'),
+    (4, 'AA0001', '2020-11-15', 9, 'How many subjects does HCMUT have: ', '0001'),
+    (3, 'AA0001', '2020-11-18', 10, 'Bac Ho sinh nam ... ', '0001'),
+    (4, 'AA0001', '2020-11-18', 11, 'HCMUT co ... mon ', '0001'),
+    (5, 'BB0000', '2020-10-28', 12, 'CSE co bao nhieu sinh vien: ', '0002'),
+    (6, 'BB0000', '2020-10-29', 13, 'DHBK co bao nhieu sinh vien:', '0002'),
+    (5, 'BB0000', '2020-10-28', 16, 'How many students does CSE have: ', '0002'),
+    (6, 'BB0000', '2020-10-29', 17, 'How many students does HCMUT have: ', '0002');
+    
+INSERT INTO studentanswer
+VALUES
+	('10000000', 'AA0000', '2020-12-05', '0003', null),
+    ('10000001', 'AA0000', '2020-12-07', '0002', null),
+    ('10000002', 'AA0000', '2020-12-08', '0001', null),
+    ('10000003', 'AA0001', '2020-11-12', '0002', null),
+    ('10000004', 'AA0001', '2020-11-15', '0001', null),
+    ('10000005', 'AA0001', '2020-11-18', '0001', null),
+    ('10000003', 'BB0000', '2020-10-28', '0002', null),
+    ('10000004', 'BB0000', '2020-10-29', '0002', null);
+    
+    
+    
+    
 
     
     
